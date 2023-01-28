@@ -3,7 +3,7 @@ class FilesProcessor:
         self.files_names_list = files_names_list
 
     def create_files_dict(self):
-        
+    
         files_dict = {}
         
         for file in self.files_names_list:
@@ -17,5 +17,24 @@ class FilesProcessor:
         
         return files_dict
 
+    def str_qw_sorted(self):
+        
+        str_qw_list = []
+        
+        for value in list(self.create_files_dict().values()):
+            str_qw_list.append(value[0])
+        
+        return sorted(str_qw_list)
+
+    def write_in_order(self):
+        for str_qw in self.str_qw_sorted():
+            for key, value in self.create_files_dict().items():
+                if str_qw in value:
+                    with open('res.txt', 'a') as file:
+                        file.write(key + '\n')
+                        file.write(str(value[0]) + '\n')
+                        file.write(value[1] + '\n')
+        
+
 processor = FilesProcessor(['1.txt', '2.txt', '3.txt'])
-print(processor.create_files_dict())
+processor.write_in_order()
